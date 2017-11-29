@@ -1,0 +1,1760 @@
+---
+swagger: "2.0"
+info:
+  description: "Документация содержит описание методов получения статистики для мо\
+    бильной врсии.ю23"
+  version: "1.0"
+  title: "Dashboard Documentation"
+host: "market.evotor.ru"
+tags:
+- name: "Статистика и уведомления"
+  description: "Статистика и уведомления"
+- name: "Список приложений"
+  description: "Методы получения списков приложений сайта [market.evotor.ru](https://market.evotor.ru)"
+- name: "Информация по приложению"
+  description: "Методы получения списков приложений сайта [market.evotor.ru](https://market.evotor.ru)"
+- name: "Получение токена"
+  description: "Получение токена для авторизации запросов к магазину приложений [market.evotor.ru](https://market.evotor.ru)"
+- name: "Взаимодействие пользователя и сайта"
+schemes:
+- "https"
+paths:
+  /api/v1/dashboard/public/users/current/alive:
+    get:
+      tags:
+      - "Статистика и уведомления"
+      summary: "Получить список активности пользователя"
+      description: "Проверяет наличие пробитых чеков начиная с заданного времени д\
+        о текущего момента."
+      operationId: "isAliveUsingGET"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      - name: "startDate"
+        in: "query"
+        description: "Дата начала выборки в формате yyyy-MM-dd."
+        required: true
+        type: "string"
+        format: "date-time"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/users/current/notifications:
+    get:
+      tags:
+      - "Статистика и уведомления"
+      summary: "Получить список доступных уведомлений"
+      description: "Возвращает список доступных уведомлений."
+      operationId: "getNotificationsUsingGET"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/inline_response_200_1"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/users/current/dashboard/daily-reports:
+    get:
+      tags:
+      - "Статистика и уведомления"
+      summary: "Получить список чеков за период"
+      description: "Возвращает сумму и количество чеков за указанный период"
+      operationId: "getReceiptsUsingGET"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "shopUuid"
+        in: "query"
+        description: "Идентификатор магазина uuid4."
+        required: false
+        type: "string"
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      - name: "date.gt"
+        in: "query"
+        description: "Дата начала выборки в формате yyyy-MM-dd.\nДиапазон дат (от\
+          \ `startDate` до `endDate`) может быть за один день, неделю (7 дней) или\
+          \ месяц (31 день). Если в запросе указано другое количество дней, округл\
+          яется до одного, семи или 31-го дня."
+        required: true
+        type: "string"
+        format: "date-time"
+      - name: "date.lt"
+        in: "query"
+        description: "Дата окончания выборки в формате yyyy-MM-dd.\nДиапазон дат (о\
+          т `startDate` до `endDate`) может быть за один день, неделю (7 дней) или\
+          \ месяц (31 день). Если в запросе указано другое количество дней, округл\
+          яется до одного, семи или 31-го дня."
+        required: true
+        type: "string"
+        format: "date-time"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_2"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/users/current/dashboard/daily-totals:
+    get:
+      tags:
+      - "Статистика и уведомления"
+      summary: "Получить дневные суммы продаж за период"
+      description: "Возвращает сумму и количество продаж за период"
+      operationId: "getSalesUsingGET"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "shopUuid"
+        in: "query"
+        description: "Идентификатор магазина uuid4."
+        required: false
+        type: "string"
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      - name: "date.gt"
+        in: "query"
+        description: "Дата начала выборки в формате yyyy-MM-dd.\nДиапазон дат (от\
+          \ `startDate` до `endDate`) может быть за один день, неделю (7 дней) или\
+          \ месяц (31 день). Если в запросе указано другое количество дней, округл\
+          яется до одного, семи или 31-го дня."
+        required: true
+        type: "string"
+        format: "date-time"
+      - name: "date.lt"
+        in: "query"
+        description: "Дата окончания выборки в формате yyyy-MM-dd.\nДиапазон дат (о\
+          т `startDate` до `endDate`) может быть за один день, неделю (7 дней) или\
+          \ месяц (31 день). Если в запросе указано другое количество дней, округл\
+          яется до одного, семи или 31-го дня."
+        required: true
+        type: "string"
+        format: "date-time"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_3"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/users/current/dashboard/cheque-summary:
+    get:
+      tags:
+      - "Статистика и уведомления"
+      summary: "Получение статистики по чекам (сумма и кол-во) с точностью до часа"
+      description: "Запрос возвращает суммари по чекам за период или по другим пор\
+        аметрам типа магаз, сотрудник, терминал"
+      operationId: "getChequeSummaryUsingGET"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "shopUuid"
+        in: "query"
+        description: "Идентификатор магазина uuid4."
+        required: false
+        type: "string"
+      - name: "deviceId"
+        in: "query"
+        description: "Идентификатор терминала imei."
+        required: false
+        type: "string"
+      - name: "staffUuid"
+        in: "query"
+        description: "Идентификатор сотрудника uuid4."
+        required: false
+        type: "string"
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      - name: "date.gt"
+        in: "query"
+        description: "Дата начала выборки в формате yyyy-MM-dd.\nДиапазон дат (от\
+          \ `startDate` до `endDate`) может быть за один день, неделю (7 дней) или\
+          \ месяц (31 день). Если в запросе указано другое количество дней, округл\
+          яется до одного, семи или 31-го дня."
+        required: true
+        type: "string"
+        format: "date-time"
+      - name: "date.lt"
+        in: "query"
+        description: "Дата окончания выборки в формате yyyy-MM-dd.\nДиапазон дат (о\
+          т `startDate` до `endDate`) может быть за один день, неделю (7 дней) или\
+          \ месяц (31 день). Если в запросе указано другое количество дней, округл\
+          яется до одного, семи или 31-го дня."
+        required: true
+        type: "string"
+        format: "date-time"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_4"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/users/current/dashboard/shops:
+    get:
+      tags:
+      - "Статистика и уведомления"
+      summary: "Получить список магазинов"
+      description: "Возвращает список магазинов."
+      operationId: "getShopsUsingGET"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_5"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/users/current/dashboard/ofd-status:
+    get:
+      tags:
+      - "Статистика и уведомления"
+      summary: "Получить количество чеков, неотправленных в ОФД"
+      description: "Возвращает последнюю дату синхронизации с ОФД и общее количест\
+        во чеков, неотправленных в ОФД, по всем смарт-терминалам."
+      operationId: "getSyncStatusUsingGET"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      - name: "date.gt"
+        in: "query"
+        description: "Дата начала выборки в формате yyyy-MM-dd.\nДиапазон дат (от\
+          \ `startDate` до `endDate`) может быть за один день, неделю (7 дней) или\
+          \ месяц (31 день). Если в запросе указано другое количество дней, округл\
+          яется до одного, семи или 31-го дня."
+        required: true
+        type: "string"
+        format: "date-time"
+      - name: "date.lt"
+        in: "query"
+        description: "Дата окончания выборки в формате yyyy-MM-dd.\nДиапазон дат (о\
+          т `startDate` до `endDate`) может быть за один день, неделю (7 дней) или\
+          \ месяц (31 день). Если в запросе указано другое количество дней, округл\
+          яется до одного, семи или 31-го дня."
+        required: true
+        type: "string"
+        format: "date-time"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_6"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/users/current/dashboard/terminals:
+    get:
+      tags:
+      - "Статистика и уведомления"
+      summary: "Получить список и статусы смарт-терминалов"
+      description: "Возвращает список смарт-терминалов и их статусы.\nВозможные зн\
+        ачения:\n\n  * `ON` – смарт-терминал включён;\n  * `OFF` – смарт-терминал\
+        \ выключен;\n  * `DEAD` – смарт-терминал никогда не выходил на связь."
+      operationId: "getTerminalsStatusesUsingGET"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_7"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/users/current/dashboard/get_staff:
+    get:
+      tags:
+      - "Статистика и уведомления"
+      summary: "Получить список и статусы ролей и сотрудников"
+      description: "Возвращает список и статусы ролей и сотрудников."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_8"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/users/current/dashboard/top-employees:
+    get:
+      tags:
+      - "Статистика и уведомления"
+      summary: "Получить список лучших сотрудников за период"
+      description: "Возвращает выручку (продажи, возвраты) по сотрудникам за указа\
+        нный период."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      - name: "date.gt"
+        in: "query"
+        description: "Дата начала выборки в формате yyyy-MM-dd.\nДиапазон дат (от\
+          \ `startDate` до `endDate`) может быть за один день, неделю (7 дней) или\
+          \ месяц (31 день). Если в запросе указано другое количество дней, округл\
+          яется до одного, семи или 31-го дня."
+        required: true
+        type: "string"
+        format: "date-time"
+      - name: "date.lt"
+        in: "query"
+        description: "Дата окончания выборки в формате yyyy-MM-dd.\nДиапазон дат (о\
+          т `startDate` до `endDate`) может быть за один день, неделю (7 дней) или\
+          \ месяц (31 день). Если в запросе указано другое количество дней, округл\
+          яется до одного, семи или 31-го дня."
+        required: true
+        type: "string"
+        format: "date-time"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_9"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/users/current/dashboard/top-products:
+    get:
+      tags:
+      - "Статистика и уведомления"
+      summary: "Получить список самых популярных товаров за период"
+      description: "Возвращает выручку (продажи, возвраты) по товарам за указанный\
+        \ период."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "shopUuid"
+        in: "query"
+        description: "Идентификатор магазина uuid4."
+        required: false
+        type: "string"
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      - name: "date.gt"
+        in: "query"
+        description: "Дата начала выборки в формате yyyy-MM-dd.\nДиапазон дат (от\
+          \ `startDate` до `endDate`) может быть за один день, неделю (7 дней) или\
+          \ месяц (31 день). Если в запросе указано другое количество дней, округл\
+          яется до одного, семи или 31-го дня."
+        required: true
+        type: "string"
+        format: "date-time"
+      - name: "date.lt"
+        in: "query"
+        description: "Дата окончания выборки в формате yyyy-MM-dd.\nДиапазон дат (о\
+          т `startDate` до `endDate`) может быть за один день, неделю (7 дней) или\
+          \ месяц (31 день). Если в запросе указано другое количество дней, округл\
+          яется до одного, семи или 31-го дня."
+        required: true
+        type: "string"
+        format: "date-time"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_10"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/users/current/dashboard/top-shops:
+    get:
+      tags:
+      - "Статистика и уведомления"
+      summary: "Получить список самых популярных магазинов за период"
+      description: "Возвращает выручку (продажи, возвраты) по магазинам за указанн\
+        ый период."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      - name: "date.gt"
+        in: "query"
+        description: "Дата начала выборки в формате yyyy-MM-dd.\nДиапазон дат (от\
+          \ `startDate` до `endDate`) может быть за один день, неделю (7 дней) или\
+          \ месяц (31 день). Если в запросе указано другое количество дней, округл\
+          яется до одного, семи или 31-го дня."
+        required: true
+        type: "string"
+        format: "date-time"
+      - name: "date.lt"
+        in: "query"
+        description: "Дата окончания выборки в формате yyyy-MM-dd.\nДиапазон дат (о\
+          т `startDate` до `endDate`) может быть за один день, неделю (7 дней) или\
+          \ месяц (31 день). Если в запросе указано другое количество дней, округл\
+          яется до одного, семи или 31-го дня."
+        required: true
+        type: "string"
+        format: "date-time"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_11"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/users/current/apps:
+    get:
+      tags:
+      - "Список приложений"
+      summary: "Возвращает список активных и неактивных  приложений пользоваетля"
+      description: "Возвращает массив обектов с информацие по приложениям пользова\
+        теля."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/AppUser"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/apps:
+    get:
+      tags:
+      - "Список приложений"
+      summary: "Возвращает список доступных приложений"
+      description: "Возвращает массив обектов с информацие по приложениям  сайта [market.evotor.ru](https:/market.evotor.ru)."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/App"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/app-ratings:
+    post:
+      tags:
+      - "Список приложений"
+      summary: "Возвращает список рейтингов и рангов приложений"
+      description: "Возвращает массив обектов с информацие по рейтингам приложений\
+        \ на основании отзывов пользователей сайта [market.evotor.ru](https:/market.evotor.ru)."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      - name: "origin"
+        in: "header"
+        description: "Имя хоста на который осуществляется запрос"
+        required: true
+        type: "string"
+        enum:
+        - "https://market.evotor.ru/"
+      - name: "Content-Type"
+        in: "header"
+        description: "Тип данных, которые может содержать тело HTTP-запроса. Значе\
+          ние по умолчанию `application/json`\n"
+        required: true
+        type: "string"
+        default: "application/json"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          type: "array"
+          items:
+            type: "string"
+            x-examples:
+              application/json:
+              - "b7147bcb-2e66-462d-8379-85f50f09d507"
+              - "8e98172e-e786-4294-8661-84b62628f95b"
+      responses:
+        200:
+          description: "OK"
+          examples:
+            application/json:
+              8e98172e-e786-4294-8661-84b62628f95b:
+                rating: 3.79000000000000003552713678800500929355621337890625
+                rank: 234
+              1e98172e-e786-4294-8661-84b62628f95b:
+                rating: 3.79000000000000003552713678800500929355621337890625
+                rank: 234
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/app-plans:
+    post:
+      tags:
+      - "Список приложений"
+      summary: "Возвращает данные по всем тарифам на приложения"
+      description: "Возвращает массив обектов по всем тарифам на приложения тарифа\
+        м  сайта [market.evotor.ru](https:/market.evotor.ru)."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      - name: "origin"
+        in: "header"
+        description: "Имя хоста на который осуществляется запрос"
+        required: true
+        type: "string"
+        enum:
+        - "https://market.evotor.ru/"
+      - name: "Content-Type"
+        in: "header"
+        description: "Тип данных, которые может содержать тело HTTP-запроса. Значе\
+          ние по умолчанию `application/json`\n"
+        required: true
+        type: "string"
+        default: "application/json"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/body"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "object"
+            properties: {}
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/categories:
+    get:
+      tags:
+      - "Список приложений"
+      summary: "Возвращает информацию и ранги по категориям приложений"
+      description: "Возвращает массив обектов по категориям приложений с данными п\
+        о рейтингам категорий  сайта [market.evotor.ru](https:/market.evotor.ru)."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Category"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /oauth/token:
+    post:
+      tags:
+      - "Получение токена"
+      summary: "Получить токен пользователя"
+      description: "Возвращает JSON Web token пользователя Эвотор."
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "origin"
+        in: "header"
+        description: "Имя хоста на который осуществляется запрос"
+        required: true
+        type: "string"
+        enum:
+        - "https://market.evotor.ru/"
+      - name: "authorization"
+        in: "header"
+        description: "Токен доступа к методу получения токена пользователя"
+        required: true
+        type: "string"
+        enum:
+        - "Basic RXZvLVVJOnNlY3JldA=="
+      - name: "grant_type"
+        in: "query"
+        description: "Способ получения токена токена. grant_type=password"
+        required: true
+        type: "string"
+        default: "password"
+      - name: "username"
+        in: "query"
+        description: "Имя учётной записи (номер телефона) пользователя Эвотор."
+        required: true
+        type: "string"
+        format: "+79111111111"
+      - name: "password"
+        in: "query"
+        description: "\nПароль от учётной записи пользователя Эвотор.\n\nПароль до\
+          лжен быть более 8 символов и должен содержать цифры, прописные и строчны\
+          е буквы.\n"
+        required: true
+        type: "string"
+        format: "abcDEF123"
+      - name: "type"
+        in: "query"
+        description: "Тип запроса. Возможные значения:\n  `REG` - регистрация.\n \
+          \ `LOGIN` - авторизация.\n"
+        required: true
+        type: "string"
+        default: "LOGIN"
+        format: "abcDEF123"
+        enum:
+        - "REG"
+        - "LOGIN"
+      - name: "client_id"
+        in: "query"
+        description: "Идентификатор приложения из которого осуществляется запрос."
+        required: true
+        type: "string"
+        default: "Evo-UI"
+        format: "Evo-UI"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/   "
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /oauth/token/:
+    post:
+      tags:
+      - "Обновление токена"
+      summary: "Обновить токен пользователя"
+      description: "Возвращает JSON Web token пользователя Эвотор."
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "origin"
+        in: "header"
+        description: "Имя хоста на который осуществляется запрос"
+        required: true
+        type: "string"
+        enum:
+        - "https://market.evotor.ru/"
+      - name: "authorization"
+        in: "header"
+        description: "Токен доступа к методу получения токена пользователя"
+        required: true
+        type: "string"
+        enum:
+        - "Basic RXZvLVVJOnNlY3JldA=="
+      - name: "grant_type"
+        in: "query"
+        description: "Способ получения токена токена. grant_type=refresh_token"
+        required: true
+        type: "string"
+        default: "refresh_token"
+      - name: "client_id"
+        in: "query"
+        description: "Идентификатор приложения из которого осуществляется запрос."
+        required: true
+        type: "string"
+        default: "Evo-UI"
+        format: "Evo-UI"
+      - name: "refresh_token"
+        in: "query"
+        description: "Здесь следует указать refresh_token из метода получения обно\
+          вленного токена для нового или уже зарегестрированного пользователя"
+        required: true
+        type: "string"
+        format: "refresh_token"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/   "
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/apps/{app_id}:
+    get:
+      tags:
+      - "Информация по приложению"
+      summary: "Возвращает подробную информацию о приложении с контент данными"
+      description: "Возвращает подробную информацию по приложению с контент данным\
+        и  сайта [market.evotor.ru](https://market.evotor.ru)."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      - name: "app_id"
+        in: "path"
+        description: "app_uuid приложения."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/App"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/publishers/{publisher_id}:
+    get:
+      tags:
+      - "Информация по приложению"
+      summary: "Возвращает подробную информацию о разработчике приложения"
+      description: "Возвращает подробную информацию и контактные данные  разработч\
+        ика приложения  сайта [market.evotor.ru](https://market.evotor.ru)."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      - name: "publisher_id"
+        in: "path"
+        description: "publisher_uuid приложения."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_12"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /api/v1/users/current/logout:
+    post:
+      tags:
+      - "Взаимодействие пользователя и сайта"
+      summary: "Завершение сеанса пользователя на сайте"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "origin"
+        in: "header"
+        description: "Имя хоста на который осуществляется запрос"
+        required: true
+        type: "string"
+        enum:
+        - "https://market.evotor.ru/"
+      - name: "X-Authorization"
+        in: "header"
+        description: "Bearer токен авторизации."
+        required: true
+        type: "string"
+      - name: "Content-Type"
+        in: "header"
+        description: "Тип данных, которые может содержать тело HTTP-запроса. Значе\
+          ние по умолчанию `application/x-www-form-urlencoded`\n"
+        required: true
+        type: "string"
+        default: "application/x-www-form-urlencoded"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_13"
+        400:
+          description: "Bad Request"
+        401:
+          description: "Unauthorized"
+        413:
+          description: "Payload Too Large"
+        500:
+          description: "Internal Server Error"
+definitions:
+  AppUser:
+    type: "object"
+    properties:
+      activatable:
+        type: "boolean"
+      appId:
+        type: "string"
+      deviceQuantity:
+        type: "integer"
+        format: "int32"
+      devices:
+        type: "array"
+        items:
+          $ref: "#/definitions/AppUserDevice"
+      lastModified:
+        type: "string"
+        format: "date-time"
+      licenses:
+        type: "array"
+        items:
+          $ref: "#/definitions/AppUserLicense"
+      status:
+        type: "string"
+        example: "ACTIVE"
+        enum:
+        - "JUST_CREATED"
+        - "INIT"
+        - "REINIT"
+        - "ACTIVE"
+        - "INACTIVE"
+        - "UNINSTALLING"
+  AppUserDevice:
+    type: "object"
+    properties:
+      deviceId:
+        type: "string"
+      status:
+        type: "string"
+        enum:
+        - "TO_INSTALL"
+        - "INSTALLED"
+        - "TO_UNINSTALL"
+        - "UNINSTALLED"
+        - "INSTALLATION_FAILED"
+  AppUserLicense:
+    type: "object"
+    properties:
+      active:
+        type: "boolean"
+      deviceQuantity:
+        type: "integer"
+        format: "int32"
+      id:
+        type: "string"
+      status:
+        type: "string"
+        enum:
+        - "INIT"
+        - "ACTIVE"
+        - "INACTIVE"
+        - "AWAITING"
+      type:
+        type: "string"
+        enum:
+        - "OEM"
+        - "SUB"
+        - "PURCHASE"
+        - "BUNDLE_PURCHASE"
+        - "FREE_PARTNER"
+        - "FREE"
+  App:
+    type: "object"
+    properties:
+      active:
+        type: "boolean"
+      apkAsset:
+        $ref: "#/definitions/Optional«AppAsset»"
+      appId:
+        type: "string"
+      assets:
+        type: "array"
+        items:
+          $ref: "#/definitions/AppAsset"
+      category:
+        $ref: "#/definitions/Category"
+      created:
+        type: "string"
+        format: "date-time"
+      description:
+        type: "string"
+      hasBilling:
+        type: "boolean"
+      id:
+        type: "string"
+      inReview:
+        type: "boolean"
+      inTest:
+        type: "boolean"
+      lastModified:
+        type: "string"
+        format: "date-time"
+      logoUrl:
+        type: "string"
+      name:
+        type: "string"
+      offertUrl:
+        type: "string"
+      points:
+        type: "array"
+        items:
+          $ref: "#/definitions/AppPoint"
+      publisherId:
+        type: "string"
+      shortName:
+        type: "string"
+      status:
+        type: "string"
+        enum:
+        - "ACTIVE"
+        - "INACTIVE"
+        - "REVIEW"
+      summary:
+        type: "string"
+      type:
+        type: "string"
+        enum:
+        - "CLOUD"
+        - "APK"
+        - "OFD"
+      versionCode:
+        type: "integer"
+        format: "int32"
+      versionId:
+        type: "string"
+      versionString:
+        type: "string"
+      versionSummary:
+        type: "string"
+  AppAsset:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      type:
+        type: "string"
+        enum:
+        - "ICON"
+        - "SCREENSHOT"
+        - "VIDEO"
+        - "OFFERT"
+        - "OTHER"
+        - "APK"
+        - "APP_PARTNER"
+      url:
+        type: "string"
+  AppPoint:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      parent:
+        $ref: "#/definitions/AppPoint"
+      type:
+        type: "string"
+        enum:
+        - "TECH_REQUIREMENT"
+        - "INFO"
+        - "FEATURE"
+      value:
+        type: "string"
+  Category:
+    type: "object"
+    properties:
+      description:
+        type: "string"
+      id:
+        type: "string"
+      name:
+        type: "string"
+      parent:
+        $ref: "#/definitions/Category"
+      rank:
+        type: "integer"
+        format: "int64"
+      status:
+        type: "string"
+        enum:
+        - "ACTIVE"
+        - "INACTIVE"
+        - "REVIEW"
+  Optional«AppAsset»:
+    type: "object"
+    properties:
+      present:
+        type: "boolean"
+  inline_response_200:
+    properties:
+      alive:
+        type: "boolean"
+        example: true
+        description: "Информация об активности полльзователя\n\n`true` – активен.\n\
+          `false` – неактивен.\n"
+  inline_response_200_1:
+    properties:
+      buttonTitle:
+        type: "string"
+        description: "Наименование кнопки."
+      buttonUrl:
+        type: "string"
+        description: "URL кнопки."
+      description:
+        type: "string"
+        description: "Описание кнопки."
+      iconUrl:
+        type: "string"
+        description: "URL иконки."
+      id:
+        type: "string"
+        description: "Идентификатор кнопки."
+      status:
+        type: "string"
+        description: "Статус кнопки."
+        enum:
+        - "ACTIVE"
+        - "INACTIVE"
+      title:
+        type: "string"
+        description: "Название."
+      uid:
+        type: "string"
+        description: "uuid."
+  inline_response_200_2_data:
+    required:
+    - "date"
+    properties:
+      date:
+        type: "string"
+        description: "Дата в формате \"yyyy-MM-dd\"."
+      cashPaymentAmount:
+        type: "number"
+        description: "Сумма в чеках (оплата наличными)."
+      cashPaymentCount:
+        type: "number"
+        description: "Количество."
+      cardPaymentAmount:
+        type: "number"
+        description: "Сумма в чеках (оплата картой)."
+      cardPaymentCount:
+        type: "number"
+        description: "Количество."
+      cashReturnAmount:
+        type: "number"
+        description: "Сумма в чеках-возвратах (наличные)."
+      cashReturnCount:
+        type: "number"
+        description: "Количество."
+      cardReturnAmount:
+        type: "number"
+        description: "Сумма в чеках-возвратах (картой)."
+      cardReturnCount:
+        type: "number"
+        description: "Количество."
+  inline_response_200_2:
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/inline_response_200_2_data"
+  inline_response_200_3_data:
+    required:
+    - "amount"
+    - "date"
+    properties:
+      date:
+        type: "string"
+        description: "Дата в формате \"yyyy-MM-dd\"."
+      amount:
+        type: "number"
+        description: "Сумма за указанный период."
+  inline_response_200_3:
+    properties:
+      data:
+        type: "array"
+        description: "Массив данных. Обязателен если result = 0."
+        items:
+          $ref: "#/definitions/inline_response_200_3_data"
+  inline_response_200_4:
+    properties:
+      revertAmount:
+        type: "number"
+        description: "Общая сумма чеков возвратов (по карте + наличными)"
+      revertCardAmount:
+        type: "number"
+        description: "Сумма чеков возвратов по карте"
+      revertCardCount:
+        type: "integer"
+        description: "Кол-во чеков возвратов по карте"
+      revertCashAmount:
+        type: "number"
+        description: "Сумма чеков возвратов по наличными"
+      revertCashCount:
+        type: "integer"
+        description: "Кол-во чеков возвратов наличными"
+      revertCount:
+        type: "integer"
+        description: "Общее кол-во чеков возвратов (по карте + наличными)"
+      sellAmount:
+        type: "number"
+        description: "Общая сумма чеков оплаты (по карте + наличными)"
+      sellCardAmount:
+        type: "number"
+        description: "Сумма чеков оплаты по карте"
+      sellCardCount:
+        type: "integer"
+        description: "Кол-во чеков оплаты по карте"
+      sellCashAmount:
+        type: "number"
+        description: "Сумма чеков оплаты наличными"
+      sellCashCount:
+        type: "integer"
+        description: "Кол-во чеков оплаты наличными"
+      sellCount:
+        type: "integer"
+        description: "Общее кол-во чеков оплаты (по карте + наличными)"
+  inline_response_200_5_data:
+    required:
+    - "address"
+    - "name"
+    - "uuid"
+    properties:
+      uuid:
+        type: "string"
+        example: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        description: "Идентификатор магазина."
+        pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+      name:
+        type: "number"
+        example: "Мой магазин"
+        description: "Название магазина."
+      address:
+        type: "string"
+        example: "Москва, Старокочановский пер., д. 4"
+        description: "Дата в формате \"yyyy-MM-dd\"."
+  inline_response_200_5:
+    properties:
+      data:
+        type: "array"
+        description: "Массив данных. Обязателен если result = 0."
+        items:
+          $ref: "#/definitions/inline_response_200_5_data"
+  inline_response_200_6:
+    required:
+    - "count"
+    - "hasOfd"
+    - "lastSyncDate"
+    properties:
+      count:
+        type: "number"
+        description: "Общее количество чеков, неотправленных в ОФД, по всем термин\
+          алам.\n\nSUM(NOT_SENDED_DOCS_COUNT) FROM EVOTOR_BIGDATA.DEVICE_KKM_DESCRIPTION\n"
+      lastSyncDate:
+        type: "string"
+        description: "Минимальная дата обновления этой информации.\n\nMIN(SERVER_DATE)\
+          \ FROM EVOTOR_BIGDATA.DEVICE_KKM_DESCRIPTION\n"
+      hasOfd:
+        type: "boolean"
+        description: "Возвращает `true`, если как минимум один из терминалов подкл\
+          ючён к \"платформе ОФД\".\n\nEVOTOR_BIGDATA.DEVICE_KKM_DESCRIPTION.FN_REG_NUMBER\n"
+  inline_response_200_7_data:
+    required:
+    - "id"
+    - "name"
+    - "status"
+    - "uuid"
+    properties:
+      name:
+        type: "number"
+        example: "Мой смарт-терминал"
+        description: "Название смарт-терминала."
+      id:
+        type: "string"
+        example: "352398080014485"
+        description: "Идентификатор смарт-терминала (IMEI)."
+      uuid:
+        type: "string"
+        example: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        description: "Идентификатор смарт-терминала в Облаке Эвотор, в формате uuid4."
+        pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+      status:
+        type: "string"
+        example: "ON"
+        description: "Статус смарт-терминала.\n\nВозможные значения:\n  * `ON` – в\
+          ключён;\n  * `OFF` – выключен;\n  * `DEAD` – никогда не выходил на связь\
+          .\n"
+        enum:
+        - "ON"
+        - "OFF"
+        - "DEAD"
+      lastActiveDate:
+        type: "string"
+        example: "2017-12-12 12:12:12"
+        description: "Последняя дата выхода смарт-терминала на связь в формате `yyyy-MM-dd\
+          \ HH:mm:ss`.\n\nЧасовой пояс смарт-терминала.\n"
+  inline_response_200_7:
+    properties:
+      data:
+        type: "array"
+        description: "Массив данных. Обязателен если result = 0."
+        items:
+          $ref: "#/definitions/inline_response_200_7_data"
+  inline_response_200_8_roles:
+    properties:
+      code:
+        type: "string"
+        example: "ADMIN"
+        description: "Код роли сотрудников."
+      id:
+        type: "integer"
+        example: 97820
+        description: "Идентификатор роли сотрудников."
+      title:
+        type: "string"
+        example: "Администратор"
+        description: "Название роли сотрудников."
+      uuid:
+        type: "string"
+        example: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        description: "Идентификатор роли сотрудников в Облаке Эвотор, в формате uuid4."
+        pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+  inline_response_200_8_staff:
+    properties:
+      name:
+        type: "string"
+        example: "Иван"
+        description: "Имя сотрудника."
+      nameF:
+        type: "string"
+        example: "Иванов"
+        description: "Фамилия сотрудника."
+      nameP:
+        type: "string"
+        example: "Иванович"
+        description: "Отчество сотрудника."
+      phone:
+        type: "integer"
+        example: 79111111111
+        description: "Номер телефона сотрудника."
+      roleId:
+        type: "integer"
+        example: 97820
+        description: "Идентификатор роли сотрудника."
+      shopUuids:
+        type: "array"
+        description: "Идентификаторы магазинов в Облаке Эвотор, в формате uuid4."
+        items:
+          type: "string"
+          example: "20170516-54FF-40EB-8037-4FD2125B1BE6"
+          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+      uuid:
+        type: "string"
+        example: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        description: "Идентификатор  сотрудникоа в Облаке Эвотор, в формате uuid4."
+        pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+  inline_response_200_8:
+    properties:
+      roles:
+        type: "array"
+        description: "Массив данных. Обязателен если result = 0."
+        items:
+          $ref: "#/definitions/inline_response_200_8_roles"
+      staff:
+        type: "array"
+        description: "Массив данных. Обязателен если result = 0."
+        items:
+          $ref: "#/definitions/inline_response_200_8_staff"
+  inline_response_200_9_data:
+    required:
+    - "amount"
+    - "name"
+    - "percent"
+    - "uuid"
+    properties:
+      name:
+        type: "string"
+        example: "Васильев Василий Васильевич"
+        description: "Имя сотрудника."
+      uuid:
+        type: "string"
+        example: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        description: "Идентификатор сотрудника в Облаке Эвотор, в формате uuid4."
+        pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+      amount:
+        type: "number"
+        example: 12345
+        description: "Выручка сотрудника."
+      percent:
+        type: "number"
+        example: 71.5499999999999971578290569595992565155029296875
+        description: "Процент от общего значения выручки."
+  inline_response_200_9:
+    properties:
+      data:
+        type: "array"
+        description: "Массив данных. Обязателен если result = 0."
+        items:
+          $ref: "#/definitions/inline_response_200_9_data"
+  inline_response_200_10_data:
+    required:
+    - "amount"
+    - "count"
+    - "name"
+    - "percent"
+    properties:
+      name:
+        type: "string"
+        example: "Ручка"
+        description: "Название товара."
+      count:
+        type: "integer"
+        example: 7
+        description: "Количество покупок."
+      amount:
+        type: "number"
+        example: 12345
+        description: "Выручка (продажи и возвраты) по товару за указанный период."
+      percent:
+        type: "number"
+        example: 71.5499999999999971578290569595992565155029296875
+        description: "Процент от общего значения выручки."
+  inline_response_200_10:
+    properties:
+      data:
+        type: "array"
+        description: "Массив данных. Обязателен если result = 0."
+        items:
+          $ref: "#/definitions/inline_response_200_10_data"
+  inline_response_200_11_data:
+    required:
+    - "amount"
+    - "name"
+    - "percent"
+    - "uuid"
+    properties:
+      name:
+        type: "string"
+        example: "Мой магазин"
+        description: "Название магазина."
+      uuid:
+        type: "string"
+        example: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        description: "Идентификатор магазина в Облаке Эвотор, в формате uuid4."
+        pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+      amount:
+        type: "number"
+        example: 12345
+        description: "Выручка магазина."
+      percent:
+        type: "number"
+        example: 71.5499999999999971578290569595992565155029296875
+        description: "Процент от общего значения выручки."
+  inline_response_200_11:
+    properties:
+      data:
+        type: "array"
+        description: "Массив данных. Обязателен если result = 0."
+        items:
+          $ref: "#/definitions/inline_response_200_11_data"
+  body:
+    type: "object"
+    required:
+    - "productIds"
+    properties:
+      productIds:
+        type: "array"
+        items:
+          type: "string"
+  '   ':
+    properties:
+      access_token:
+        type: "string"
+        description: "Описание токена доступа"
+      token_type:
+        type: "string"
+        example: "bearer"
+        description: "Тип токена."
+        enum:
+        - "basic"
+        - "bearer"
+      refresh_token:
+        type: "string"
+        description: "Описание токена обновления."
+      expires_in:
+        type: "integer"
+        example: 1799
+        description: "Время жизни токена"
+      scope:
+        type: "string"
+        example: "read write"
+        description: "Права токена."
+        enum:
+        - "read"
+        - "write"
+        - "read write"
+      x_user_id:
+        type: "string"
+        example: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        description: "Идентификатор пользователя в формате `uuid4`."
+        pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+      x_user_auth:
+        type: "string"
+        example: "dad81ddc6040328e4352f8b8f7512dee4b2233053999c50120a4f9a47fa68a53"
+        description: "Что-то про авторизацию."
+      jti:
+        type: "string"
+        example: "1e7f0128-f03c-4c13-91da-9ce89fe37807"
+        description: "Идентификатор в формате `uuid4`."
+        pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+  inline_response_200_12:
+    properties:
+      id:
+        type: "string"
+        example: "f086d1e6-c137-4c23-b47d-af43b5ef7dc5"
+        description: "Идентификатор"
+      name:
+        type: "string"
+        example: "ivan@infop.ru"
+        description: "Название"
+      legalName:
+        type: "string"
+        example: "ООО \"НОВАСОФТ\""
+        description: "Название организации"
+      email:
+        type: "string"
+        example: "support@infop.ru"
+        description: "Адрес электронной почты"
+      contactPhone:
+        type: "string"
+        example: "+7 (495) 000-00-01"
+        description: "Номер телефона"
+      type:
+        type: "string"
+        example: "LEGAL"
+  inline_response_200_13:
+    properties:
+      success:
+        type: "boolean"
+        example: true
+        description: "Данные об успешности выхода пользователя."
+parameters:
+  auth:
+    name: "X-Authorization"
+    in: "header"
+    description: "Bearer токен авторизации."
+    required: true
+    type: "string"
+  startDate:
+    name: "date.gt"
+    in: "query"
+    description: "Дата начала выборки в формате yyyy-MM-dd.\nДиапазон дат (от `startDate`\
+      \ до `endDate`) может быть за один день, неделю (7 дней) или месяц (31 день\
+      ). Если в запросе указано другое количество дней, округляется до одного, сем\
+      и или 31-го дня."
+    required: true
+    type: "string"
+    format: "date-time"
+  endDate:
+    name: "date.lt"
+    in: "query"
+    description: "Дата окончания выборки в формате yyyy-MM-dd.\nДиапазон дат (от `startDate`\
+      \ до `endDate`) может быть за один день, неделю (7 дней) или месяц (31 день\
+      ). Если в запросе указано другое количество дней, округляется до одного, сем\
+      и или 31-го дня."
+    required: true
+    type: "string"
+    format: "date-time"
+  shop:
+    name: "shopUuid"
+    in: "query"
+    description: "Идентификатор магазина uuid4."
+    required: false
+    type: "string"
+  device:
+    name: "deviceId"
+    in: "query"
+    description: "Идентификатор терминала imei."
+    required: false
+    type: "string"
+  stuff:
+    name: "staffUuid"
+    in: "query"
+    description: "Идентификатор сотрудника uuid4."
+    required: false
+    type: "string"
+  login:
+    name: "username"
+    in: "query"
+    description: "Имя учётной записи (номер телефона) пользователя Эвотор."
+    required: true
+    type: "string"
+    format: "+79111111111"
+  password:
+    name: "password"
+    in: "query"
+    description: "\nПароль от учётной записи пользователя Эвотор.\n\nПароль должен\
+      \ быть более 8 символов и должен содержать цифры, прописные и строчные буквы\
+      .\n"
+    required: true
+    type: "string"
+    format: "abcDEF123"
+  mytype:
+    name: "type"
+    in: "query"
+    description: "Тип запроса. Возможные значения:\n  `REG` - регистрация.\n  `LOGIN`\
+      \ - авторизация.\n"
+    required: true
+    type: "string"
+    default: "LOGIN"
+    format: "abcDEF123"
+    enum:
+    - "REG"
+    - "LOGIN"
+  client_id:
+    name: "client_id"
+    in: "query"
+    description: "Идентификатор приложения из которого осуществляется запрос."
+    required: true
+    type: "string"
+    default: "Evo-UI"
+    format: "Evo-UI"
+  grant_type:
+    name: "grant_type"
+    in: "query"
+    description: "Способ получения токена токена. grant_type=password"
+    required: true
+    type: "string"
+    default: "password"
+  grant_type2:
+    name: "grant_type"
+    in: "query"
+    description: "Способ получения токена токена. grant_type=refresh_token"
+    required: true
+    type: "string"
+    default: "refresh_token"
+  origin:
+    name: "origin"
+    in: "header"
+    description: "Имя хоста на который осуществляется запрос"
+    required: true
+    type: "string"
+    enum:
+    - "https://market.evotor.ru/"
+  authorization:
+    name: "authorization"
+    in: "header"
+    description: "Токен доступа к методу получения токена пользователя"
+    required: true
+    type: "string"
+    enum:
+    - "Basic RXZvLVVJOnNlY3JldA=="
+  app_id:
+    name: "app_id"
+    in: "path"
+    description: "app_uuid приложения."
+    required: true
+    type: "string"
+  contentType:
+    name: "Content-Type"
+    in: "header"
+    description: "Тип данных, которые может содержать тело HTTP-запроса. Значение\
+      \ по умолчанию `application/json`\n"
+    required: true
+    type: "string"
+    default: "application/json"
+  contentType2:
+    name: "Content-Type"
+    in: "header"
+    description: "Тип данных, которые может содержать тело HTTP-запроса. Значение\
+      \ по умолчанию `application/x-www-form-urlencoded`\n"
+    required: true
+    type: "string"
+    default: "application/x-www-form-urlencoded"
+  publisher_id:
+    name: "publisher_id"
+    in: "path"
+    description: "publisher_uuid приложения."
+    required: true
+    type: "string"
+  refresh_token:
+    name: "refresh_token"
+    in: "query"
+    description: "Здесь следует указать refresh_token из метода получения обновлен\
+      ного токена для нового или уже зарегестрированного пользователя"
+    required: true
+    type: "string"
+    format: "refresh_token"
