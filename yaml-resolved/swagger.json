@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Документация содержит описание методов получения статистики для мо\
-    бильной врсии.ю2345"
+    бильной врсии.ю234"
   version: "1.0"
   title: "Dashboard Documentation"
 host: "market.evotor.ru"
