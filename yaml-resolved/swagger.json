@@ -37,9 +37,12 @@ paths:
         description: "Bearer токен авторизации."
         required: true
         type: "string"
-      - name: "startDate"
+      - name: "date.gt"
         in: "query"
-        description: "Дата начала выборки в формате yyyy-MM-dd."
+        description: "Дата начала выборки в формате yyyy-MM-dd.\nДиапазон дат (от\
+          \ `startDate` до `endDate`) может быть за один день, неделю (7 дней) или\
+          \ месяц (31 день). Если в запросе указано другое количество дней, округл\
+          яется до одного, семи или 31-го дня."
         required: true
         type: "string"
         format: "date-time"
