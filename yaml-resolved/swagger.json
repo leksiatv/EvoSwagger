@@ -1187,6 +1187,7 @@ definitions:
         description: "URL иконки."
       id:
         type: "string"
+        example: "a7741150-aff8-11e7-abc4-cec278b6b50a"
         description: "Идентификатор кнопки."
       status:
         type: "string"
@@ -1196,9 +1197,11 @@ definitions:
         - "INACTIVE"
       title:
         type: "string"
+        example: "Ваш бизнес на картах Яндекса"
         description: "Название."
       uid:
         type: "string"
+        example: "a7741150-aff8-11e7-abc4-cec278b6b50a"
         description: "uuid."
   inline_response_200_2_data:
     required:
@@ -1206,6 +1209,7 @@ definitions:
     properties:
       date:
         type: "string"
+        example: "2017-11-20"
         description: "Дата в формате \"yyyy-MM-dd\"."
       cashPaymentAmount:
         type: "number"
