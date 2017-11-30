@@ -620,7 +620,7 @@ paths:
           type: "array"
           items:
             type: "string"
-            example: ""
+            example: "b7147bcb-2e66-462d-8379-85f50f09d507\" \"8e98172e-e786-4294-8661-84b62628f95b\""
       responses:
         200:
           description: "OK"
