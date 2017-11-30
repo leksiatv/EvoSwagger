@@ -1183,7 +1183,7 @@ definitions:
         description: "Описание кнопки."
       iconUrl:
         type: "string"
-        example: "Установить"
+        example: "https://market.evotor.ru/static/yand/logo1.png"
         description: "URL иконки."
       id:
         type: "string"
