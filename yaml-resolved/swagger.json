@@ -1248,6 +1248,7 @@ definitions:
     properties:
       date:
         type: "string"
+        example: "2017-11-20"
         description: "Дата в формате \"yyyy-MM-dd\"."
       amount:
         type: "number"
