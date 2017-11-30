@@ -1169,15 +1169,21 @@ definitions:
     properties:
       buttonTitle:
         type: "string"
+        example: "Установить"
         description: "Наименование кнопки."
       buttonUrl:
         type: "string"
+        example: "https://market.evotor.ru/#/store/apps/9e26ea72-726c-45be-b9cd-d540034cf525?utm_source=evo_dashboard&utm_medium=app_block"
         description: "URL кнопки."
       description:
         type: "string"
+        example: "Добавляйте информацию о бизнесе: описание, график работы и списо\
+          к услуг, расширяющие круг запросов, по которым вас можно найти в Яндексе\
+          ."
         description: "Описание кнопки."
       iconUrl:
         type: "string"
+        example: "Установить"
         description: "URL иконки."
       id:
         type: "string"
