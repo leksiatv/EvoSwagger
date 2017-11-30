@@ -966,11 +966,14 @@ definitions:
     properties:
       activatable:
         type: "boolean"
+        example: true
       appId:
         type: "string"
+        example: "5d4aac91-a3df-470a-97cf-4f9aa6055def"
       deviceQuantity:
         type: "integer"
         format: "int32"
+        example: 0
       devices:
         type: "array"
         items:
@@ -978,6 +981,7 @@ definitions:
       lastModified:
         type: "string"
         format: "date-time"
+        example: "1498549693502"
       licenses:
         type: "array"
         items:
@@ -997,6 +1001,7 @@ definitions:
     properties:
       deviceId:
         type: "string"
+        example: "352398080077904"
       status:
         type: "string"
         enum:
@@ -1013,8 +1018,10 @@ definitions:
       deviceQuantity:
         type: "integer"
         format: "int32"
+        example: 0
       id:
         type: "string"
+        example: "4dd580f1-f210-4f12-9eb4-b88351edbcf4"
       status:
         type: "string"
         enum:
