@@ -23,7 +23,7 @@ paths:
     get:
       tags:
       - "Статистика и уведомления"
-      summary: "Получить список активности пользователя"
+      summary: "Получить статус активности пользователя"
       description: "Проверяет наличие пробитых чеков начиная с заданного времени д\
         о текущего момента."
       operationId: "isAliveUsingGET"
@@ -996,6 +996,28 @@ definitions:
         - "ACTIVE"
         - "INACTIVE"
         - "UNINSTALLING"
+    example:
+      licenses:
+      - active: true
+        id: "4dd580f1-f210-4f12-9eb4-b88351edbcf4"
+        deviceQuantity: 0
+        type: "OEM"
+        status: "INIT"
+      - active: true
+        id: "4dd580f1-f210-4f12-9eb4-b88351edbcf4"
+        deviceQuantity: 0
+        type: "OEM"
+        status: "INIT"
+      devices:
+      - deviceId: "352398080077904"
+        status: "TO_INSTALL"
+      - deviceId: "352398080077904"
+        status: "TO_INSTALL"
+      appId: "5d4aac91-a3df-470a-97cf-4f9aa6055def"
+      lastModified: "1498549693502"
+      deviceQuantity: 0
+      activatable: true
+      status: "ACTIVE"
   AppUserDevice:
     type: "object"
     properties:
@@ -1010,6 +1032,9 @@ definitions:
         - "TO_UNINSTALL"
         - "UNINSTALLED"
         - "INSTALLATION_FAILED"
+    example:
+      deviceId: "352398080077904"
+      status: "TO_INSTALL"
   AppUserLicense:
     type: "object"
     properties:
@@ -1038,6 +1063,12 @@ definitions:
         - "BUNDLE_PURCHASE"
         - "FREE_PARTNER"
         - "FREE"
+    example:
+      active: true
+      id: "4dd580f1-f210-4f12-9eb4-b88351edbcf4"
+      deviceQuantity: 0
+      type: "OEM"
+      status: "INIT"
   App:
     type: "object"
     properties:
@@ -1106,6 +1137,53 @@ definitions:
         type: "string"
       versionSummary:
         type: "string"
+    example:
+      offertUrl: "offertUrl"
+      description: "description"
+      type: "CLOUD"
+      points:
+      - parent: null
+        id: 1
+        type: "TECH_REQUIREMENT"
+        value: "value"
+      - parent: null
+        id: 1
+        type: "TECH_REQUIREMENT"
+        value: "value"
+      publisherId: "publisherId"
+      assets:
+      - id: 0
+        type: "ICON"
+        url: "url"
+      - id: 0
+        type: "ICON"
+        url: "url"
+      hasBilling: true
+      appId: "appId"
+      apkAsset:
+        present: true
+      id: "id"
+      summary: "summary"
+      inReview: true
+      versionString: "versionString"
+      created: "2000-01-23T04:56:07.000+00:00"
+      active: true
+      logoUrl: "logoUrl"
+      versionCode: 5
+      versionId: "versionId"
+      inTest: true
+      name: "name"
+      lastModified: "2000-01-23T04:56:07.000+00:00"
+      category:
+        parent: null
+        name: "name"
+        description: "description"
+        rank: 6
+        id: "id"
+        status: "ACTIVE"
+      shortName: "shortName"
+      versionSummary: "versionSummary"
+      status: "ACTIVE"
   AppAsset:
     type: "object"
     properties:
@@ -1124,6 +1202,10 @@ definitions:
         - "APP_PARTNER"
       url:
         type: "string"
+    example:
+      id: 0
+      type: "ICON"
+      url: "url"
   AppPoint:
     type: "object"
     properties:
@@ -1140,6 +1222,11 @@ definitions:
         - "FEATURE"
       value:
         type: "string"
+    example:
+      parent: null
+      id: 1
+      type: "TECH_REQUIREMENT"
+      value: "value"
   Category:
     type: "object"
     properties:
@@ -1160,11 +1247,20 @@ definitions:
         - "ACTIVE"
         - "INACTIVE"
         - "REVIEW"
+    example:
+      parent: null
+      name: "name"
+      description: "description"
+      rank: 6
+      id: "id"
+      status: "ACTIVE"
   Optional«AppAsset»:
     type: "object"
     properties:
       present:
         type: "boolean"
+    example:
+      present: true
   inline_response_200:
     properties:
       alive:
@@ -1172,6 +1268,8 @@ definitions:
         example: true
         description: "Информация об активности полльзователя\n\n`true` – активен.\n\
           `false` – неактивен.\n"
+    example:
+      alive: true
   inline_response_200_1:
     properties:
       buttonTitle:
@@ -1210,6 +1308,17 @@ definitions:
         type: "string"
         example: "a7741150-aff8-11e7-abc4-cec278b6b50a"
         description: "uuid."
+    example:
+      uid: "a7741150-aff8-11e7-abc4-cec278b6b50a"
+      buttonTitle: "Установить"
+      description: "Добавляйте информацию о бизнесе: описание, график работы и спи\
+        сок услуг, расширяющие круг запросов, по которым вас можно найти в Яндексе\
+        ."
+      iconUrl: "https://market.evotor.ru/static/yand/logo1.png"
+      id: "a7741150-aff8-11e7-abc4-cec278b6b50a"
+      title: "Ваш бизнес на картах Яндекса"
+      buttonUrl: "https://market.evotor.ru/#/store/apps/9e26ea72-726c-45be-b9cd-d540034cf525?utm_source=evo_dashboard&utm_medium=app_block"
+      status: "ACTIVE"
   inline_response_200_2_data:
     required:
     - "date"
@@ -1242,12 +1351,42 @@ definitions:
       cardReturnCount:
         type: "number"
         description: "Количество."
+    example:
+      date: "2017-11-20"
+      cashReturnAmount: 5.63737665663332876420099637471139430999755859375
+      cashPaymentCount: 6.02745618307040320615897144307382404804229736328125
+      cardPaymentCount: 5.962133916683182377482808078639209270477294921875
+      cashPaymentAmount: 0.80082819046101150206595775671303272247314453125
+      cardReturnAmount: 7.061401241503109105224211816675961017608642578125
+      cardReturnCount: 9.301444243932575517419536481611430644989013671875
+      cashReturnCount: 2.3021358869347654518833223846741020679473876953125
+      cardPaymentAmount: 1.46581298050294517310021547018550336360931396484375
   inline_response_200_2:
     properties:
       data:
         type: "array"
         items:
           $ref: "#/definitions/inline_response_200_2_data"
+    example:
+      data:
+      - date: "2017-11-20"
+        cashReturnAmount: 5.63737665663332876420099637471139430999755859375
+        cashPaymentCount: 6.02745618307040320615897144307382404804229736328125
+        cardPaymentCount: 5.962133916683182377482808078639209270477294921875
+        cashPaymentAmount: 0.80082819046101150206595775671303272247314453125
+        cardReturnAmount: 7.061401241503109105224211816675961017608642578125
+        cardReturnCount: 9.301444243932575517419536481611430644989013671875
+        cashReturnCount: 2.3021358869347654518833223846741020679473876953125
+        cardPaymentAmount: 1.46581298050294517310021547018550336360931396484375
+      - date: "2017-11-20"
+        cashReturnAmount: 5.63737665663332876420099637471139430999755859375
+        cashPaymentCount: 6.02745618307040320615897144307382404804229736328125
+        cardPaymentCount: 5.962133916683182377482808078639209270477294921875
+        cashPaymentAmount: 0.80082819046101150206595775671303272247314453125
+        cardReturnAmount: 7.061401241503109105224211816675961017608642578125
+        cardReturnCount: 9.301444243932575517419536481611430644989013671875
+        cashReturnCount: 2.3021358869347654518833223846741020679473876953125
+        cardPaymentAmount: 1.46581298050294517310021547018550336360931396484375
   inline_response_200_3_data:
     required:
     - "amount"
@@ -1260,6 +1399,9 @@ definitions:
       amount:
         type: "number"
         description: "Сумма за указанный период."
+    example:
+      date: "2017-11-20"
+      amount: 0.80082819046101150206595775671303272247314453125
   inline_response_200_3:
     properties:
       data:
@@ -1267,6 +1409,12 @@ definitions:
         description: "Массив данных. Обязателен если result = 0."
         items:
           $ref: "#/definitions/inline_response_200_3_data"
+    example:
+      data:
+      - date: "2017-11-20"
+        amount: 0.80082819046101150206595775671303272247314453125
+      - date: "2017-11-20"
+        amount: 0.80082819046101150206595775671303272247314453125
   inline_response_200_4:
     properties:
       revertAmount:
@@ -1305,6 +1453,19 @@ definitions:
       sellCount:
         type: "integer"
         description: "Общее кол-во чеков оплаты (по карте + наличными)"
+    example:
+      revertCardCount: 1
+      sellCardAmount: 9.301444243932575517419536481611430644989013671875
+      revertAmount: 0.80082819046101150206595775671303272247314453125
+      revertCardAmount: 6.02745618307040320615897144307382404804229736328125
+      sellAmount: 7.061401241503109105224211816675961017608642578125
+      sellCashCount: 4
+      sellCashAmount: 2.027123023002321833274663731572218239307403564453125
+      sellCount: 7
+      revertCount: 2
+      revertCashAmount: 5.962133916683182377482808078639209270477294921875
+      revertCashCount: 5
+      sellCardCount: 3
   inline_response_200_5_data:
     required:
     - "address"
@@ -1324,6 +1485,10 @@ definitions:
         type: "string"
         example: "Москва, Старокочановский пер., д. 4"
         description: "Дата в формате \"yyyy-MM-dd\"."
+    example:
+      address: "Москва, Старокочановский пер., д. 4"
+      name: "Мой магазин"
+      uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
   inline_response_200_5:
     properties:
       data:
@@ -1331,6 +1496,14 @@ definitions:
         description: "Массив данных. Обязателен если result = 0."
         items:
           $ref: "#/definitions/inline_response_200_5_data"
+    example:
+      data:
+      - address: "Москва, Старокочановский пер., д. 4"
+        name: "Мой магазин"
+        uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+      - address: "Москва, Старокочановский пер., д. 4"
+        name: "Мой магазин"
+        uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
   inline_response_200_6:
     required:
     - "count"
@@ -1350,6 +1523,10 @@ definitions:
         type: "boolean"
         description: "Возвращает `true`, если как минимум один из терминалов подкл\
           ючён к \"платформе ОФД\".\n\nEVOTOR_BIGDATA.DEVICE_KKM_DESCRIPTION.FN_REG_NUMBER\n"
+    example:
+      hasOfd: true
+      count: 0.80082819046101150206595775671303272247314453125
+      lastSyncDate: "2017-11-30 10:41:48"
   inline_response_200_7_data:
     required:
     - "id"
@@ -1385,6 +1562,12 @@ definitions:
         example: "2017-12-12 12:12:12"
         description: "Последняя дата выхода смарт-терминала на связь в формате `yyyy-MM-dd\
           \ HH:mm:ss`.\n\nЧасовой пояс смарт-терминала.\n"
+    example:
+      name: "Мой смарт-терминал"
+      lastActiveDate: "2017-12-12 12:12:12"
+      id: "352398080014485"
+      uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+      status: "ON"
   inline_response_200_7:
     properties:
       data:
@@ -1392,6 +1575,18 @@ definitions:
         description: "Массив данных. Обязателен если result = 0."
         items:
           $ref: "#/definitions/inline_response_200_7_data"
+    example:
+      data:
+      - name: "Мой смарт-терминал"
+        lastActiveDate: "2017-12-12 12:12:12"
+        id: "352398080014485"
+        uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        status: "ON"
+      - name: "Мой смарт-терминал"
+        lastActiveDate: "2017-12-12 12:12:12"
+        id: "352398080014485"
+        uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        status: "ON"
   inline_response_200_8_roles:
     properties:
       code:
@@ -1411,6 +1606,11 @@ definitions:
         example: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
         description: "Идентификатор роли сотрудников в Облаке Эвотор, в формате uuid4."
         pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    example:
+      code: "ADMIN"
+      id: 97820
+      title: "Администратор"
+      uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
   inline_response_200_8_staff:
     properties:
       name:
@@ -1445,6 +1645,16 @@ definitions:
         example: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
         description: "Идентификатор  сотрудникоа в Облаке Эвотор, в формате uuid4."
         pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    example:
+      nameF: "Иванов"
+      phone: 79111111111
+      roleId: 97820
+      name: "Иван"
+      shopUuids:
+      - "20170516-54FF-40EB-8037-4FD2125B1BE6"
+      - "20170516-54FF-40EB-8037-4FD2125B1BE6"
+      uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+      nameP: "Иванович"
   inline_response_200_8:
     properties:
       roles:
@@ -1457,6 +1667,35 @@ definitions:
         description: "Массив данных. Обязателен если result = 0."
         items:
           $ref: "#/definitions/inline_response_200_8_staff"
+    example:
+      roles:
+      - code: "ADMIN"
+        id: 97820
+        title: "Администратор"
+        uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+      - code: "ADMIN"
+        id: 97820
+        title: "Администратор"
+        uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+      staff:
+      - nameF: "Иванов"
+        phone: 79111111111
+        roleId: 97820
+        name: "Иван"
+        shopUuids:
+        - "20170516-54FF-40EB-8037-4FD2125B1BE6"
+        - "20170516-54FF-40EB-8037-4FD2125B1BE6"
+        uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        nameP: "Иванович"
+      - nameF: "Иванов"
+        phone: 79111111111
+        roleId: 97820
+        name: "Иван"
+        shopUuids:
+        - "20170516-54FF-40EB-8037-4FD2125B1BE6"
+        - "20170516-54FF-40EB-8037-4FD2125B1BE6"
+        uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        nameP: "Иванович"
   inline_response_200_9_data:
     required:
     - "amount"
@@ -1481,6 +1720,11 @@ definitions:
         type: "number"
         example: 71.5499999999999971578290569595992565155029296875
         description: "Процент от общего значения выручки."
+    example:
+      amount: 12345
+      name: "Васильев Василий Васильевич"
+      uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+      percent: 71.5499999999999971578290569595992565155029296875
   inline_response_200_9:
     properties:
       data:
@@ -1488,6 +1732,16 @@ definitions:
         description: "Массив данных. Обязателен если result = 0."
         items:
           $ref: "#/definitions/inline_response_200_9_data"
+    example:
+      data:
+      - amount: 12345
+        name: "Васильев Василий Васильевич"
+        uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        percent: 71.5499999999999971578290569595992565155029296875
+      - amount: 12345
+        name: "Васильев Василий Васильевич"
+        uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        percent: 71.5499999999999971578290569595992565155029296875
   inline_response_200_10_data:
     required:
     - "amount"
@@ -1511,6 +1765,11 @@ definitions:
         type: "number"
         example: 71.5499999999999971578290569595992565155029296875
         description: "Процент от общего значения выручки."
+    example:
+      amount: 12345
+      name: "Ручка"
+      count: 7
+      percent: 71.5499999999999971578290569595992565155029296875
   inline_response_200_10:
     properties:
       data:
@@ -1518,6 +1777,16 @@ definitions:
         description: "Массив данных. Обязателен если result = 0."
         items:
           $ref: "#/definitions/inline_response_200_10_data"
+    example:
+      data:
+      - amount: 12345
+        name: "Ручка"
+        count: 7
+        percent: 71.5499999999999971578290569595992565155029296875
+      - amount: 12345
+        name: "Ручка"
+        count: 7
+        percent: 71.5499999999999971578290569595992565155029296875
   inline_response_200_11_data:
     required:
     - "amount"
@@ -1542,6 +1811,11 @@ definitions:
         type: "number"
         example: 71.5499999999999971578290569595992565155029296875
         description: "Процент от общего значения выручки."
+    example:
+      amount: 12345
+      name: "Мой магазин"
+      uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+      percent: 71.5499999999999971578290569595992565155029296875
   inline_response_200_11:
     properties:
       data:
@@ -1549,6 +1823,16 @@ definitions:
         description: "Массив данных. Обязателен если result = 0."
         items:
           $ref: "#/definitions/inline_response_200_11_data"
+    example:
+      data:
+      - amount: 12345
+        name: "Мой магазин"
+        uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        percent: 71.5499999999999971578290569595992565155029296875
+      - amount: 12345
+        name: "Мой магазин"
+        uuid: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        percent: 71.5499999999999971578290569595992565155029296875
   body:
     type: "object"
     required:
@@ -1599,6 +1883,15 @@ definitions:
         example: "1e7f0128-f03c-4c13-91da-9ce89fe37807"
         description: "Идентификатор в формате `uuid4`."
         pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    example:
+      access_token: "access_token"
+      refresh_token: "refresh_token"
+      x_user_id: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+      scope: "read write"
+      token_type: "bearer"
+      x_user_auth: "dad81ddc6040328e4352f8b8f7512dee4b2233053999c50120a4f9a47fa68a53"
+      expires_in: 1799
+      jti: "1e7f0128-f03c-4c13-91da-9ce89fe37807"
   inline_response_200_12:
     properties:
       id:
@@ -1624,12 +1917,21 @@ definitions:
       type:
         type: "string"
         example: "LEGAL"
+    example:
+      legalName: "ООО \"НОВАСОФТ\""
+      name: "ivan@infop.ru"
+      id: "f086d1e6-c137-4c23-b47d-af43b5ef7dc5"
+      contactPhone: "+7 (495) 000-00-01"
+      type: "LEGAL"
+      email: "support@infop.ru"
   inline_response_200_13:
     properties:
       success:
         type: "boolean"
         example: true
         description: "Данные об успешности выхода пользователя."
+    example:
+      success: true
 parameters:
   auth:
     name: "X-Authorization"
