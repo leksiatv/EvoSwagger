@@ -727,7 +727,8 @@ paths:
       tags:
       - "Получение токена"
       summary: "Получить токен пользователя"
-      description: "Возвращает JSON Web token пользователя Эвотор."
+      description: "Возвращает JSON Web token пользователя Эвотор. Полученный токе\
+        н используется в заголовке X-Authorization."
       consumes:
       - "application/x-www-form-urlencoded"
       produces:
@@ -801,7 +802,8 @@ paths:
       tags:
       - "Обновление токена"
       summary: "Обновить токен пользователя"
-      description: "Возвращает JSON Web token пользователя Эвотор."
+      description: "Возвращает JSON Web token пользователя Эвотор. Полученный токе\
+        н используется в заголовке X-Authorization."
       consumes:
       - "application/x-www-form-urlencoded"
       produces:
@@ -924,8 +926,8 @@ paths:
     post:
       tags:
       - "Взаимодействие пользователя и сайта"
-      summary: "Завершение сеанса пользователя на сайте"
-      description: ""
+      summary: "Завершить сеанс пользователя"
+      description: "Завершает сессию пользователя."
       consumes:
       - "application/json"
       produces:
