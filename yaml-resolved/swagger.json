@@ -648,9 +648,9 @@ paths:
     post:
       tags:
       - "Список приложений"
-      summary: "Возвращает данные по всем тарифам на приложения"
-      description: "Возвращает массив обектов по всем тарифам на приложения тарифа\
-        м  сайта [market.evotor.ru](https:/market.evotor.ru)."
+      summary: "Получить данные по всем тарифам на приложения"
+      description: "Возвращает массив обектов по всем тарифам на приложения, досту\
+        пные в Магазине [market.evotor.ru](https:/market.evotor.ru).\n"
       consumes:
       - "application/json"
       produces:
@@ -696,9 +696,9 @@ paths:
     get:
       tags:
       - "Список приложений"
-      summary: "Возвращает информацию и ранги по категориям приложений"
+      summary: "Получить информацию и ранги по категориям приложений"
       description: "Возвращает массив обектов по категориям приложений с данными п\
-        о рейтингам категорий  сайта [market.evotor.ru](https:/market.evotor.ru)."
+        о\nрейтингам категорий в Магазине приложений [market.evotor.ru](https:/market.evotor.ru).\n"
       consumes:
       - "application/json"
       produces:
@@ -845,7 +845,7 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/   "
+            $ref: "#/definitions/   _1"
         401:
           description: "Unauthorized"
         403:
@@ -856,9 +856,9 @@ paths:
     get:
       tags:
       - "Информация по приложению"
-      summary: "Возвращает подробную информацию о приложении с контент данными"
+      summary: "Получить подробную информацию о приложении"
       description: "Возвращает подробную информацию по приложению с контент данным\
-        и  сайта [market.evotor.ru](https://market.evotor.ru)."
+        и Магазина приложений [market.evotor.ru](https://market.evotor.ru).\n"
       consumes:
       - "application/json"
       produces:
@@ -891,9 +891,9 @@ paths:
     get:
       tags:
       - "Информация по приложению"
-      summary: "Возвращает подробную информацию о разработчике приложения"
-      description: "Возвращает подробную информацию и контактные данные  разработч\
-        ика приложения  сайта [market.evotor.ru](https://market.evotor.ru)."
+      summary: "Получить подробную информацию о разработчике приложения"
+      description: "Возвращает подробную информацию и контактные данные разработчи\
+        ка приложения из Магазина [market.evotor.ru](https://market.evotor.ru).\n"
       consumes:
       - "application/json"
       produces:
@@ -1846,6 +1846,57 @@ definitions:
         items:
           type: "string"
   '   ':
+    properties:
+      access_token:
+        type: "string"
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiI3OTE2NzY3MzE1NiIsInhfdXNlcl9pZCI6ImY3NDc2NDhlLWY4NDgtNDczNS1hNDQ2LWM4NGFkMmVlMDhkMSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1MTI1NTQ2NTMsInhfdXNlcl9hdXRoIjoiNTlmMThkZGQ5M2I3MDI0YTM4ZWJkYzZiMDI0ODBmZmQxMTZmN2Y4Njg4NmE5NGUyYjc3OTZjZjM0ZGU4MjQzOSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiYjczNTdlZjctMmRmNC00OWQxLWI4MDYtZjdlMmRhYWE2NzU1IiwiY2xpZW50X2lkIjoiRXZvLVVJIn0.VqeoPAhQdL-GN8ofBDxO6mTrB_sm1YNh4yOcLx9hA0w"
+        description: "Описание токена доступа"
+      token_type:
+        type: "string"
+        example: "bearer"
+        description: "Тип токена."
+        enum:
+        - "basic"
+        - "bearer"
+      refresh_token:
+        type: "string"
+        description: "Описание токена обновления."
+      expires_in:
+        type: "integer"
+        example: 1799
+        description: "Время жизни токена"
+      scope:
+        type: "string"
+        example: "read write"
+        description: "Права токена."
+        enum:
+        - "read"
+        - "write"
+        - "read write"
+      x_user_id:
+        type: "string"
+        example: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+        description: "Идентификатор пользователя в формате `uuid4`."
+        pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+      x_user_auth:
+        type: "string"
+        example: "dad81ddc6040328e4352f8b8f7512dee4b2233053999c50120a4f9a47fa68a53"
+        description: "Что-то про авторизацию."
+      jti:
+        type: "string"
+        example: "1e7f0128-f03c-4c13-91da-9ce89fe37807"
+        description: "Идентификатор в формате `uuid4`."
+        pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    example:
+      access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiI3OTE2NzY3MzE1NiIsInhfdXNlcl9pZCI6ImY3NDc2NDhlLWY4NDgtNDczNS1hNDQ2LWM4NGFkMmVlMDhkMSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1MTI1NTQ2NTMsInhfdXNlcl9hdXRoIjoiNTlmMThkZGQ5M2I3MDI0YTM4ZWJkYzZiMDI0ODBmZmQxMTZmN2Y4Njg4NmE5NGUyYjc3OTZjZjM0ZGU4MjQzOSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiYjczNTdlZjctMmRmNC00OWQxLWI4MDYtZjdlMmRhYWE2NzU1IiwiY2xpZW50X2lkIjoiRXZvLVVJIn0.VqeoPAhQdL-GN8ofBDxO6mTrB_sm1YNh4yOcLx9hA0w"
+      refresh_token: "refresh_token"
+      x_user_id: "72812f02-0a20-4138-bd4a-6b0a2be25fcc"
+      scope: "read write"
+      token_type: "bearer"
+      x_user_auth: "dad81ddc6040328e4352f8b8f7512dee4b2233053999c50120a4f9a47fa68a53"
+      expires_in: 1799
+      jti: "1e7f0128-f03c-4c13-91da-9ce89fe37807"
+  '   _1':
     properties:
       access_token:
         type: "string"
